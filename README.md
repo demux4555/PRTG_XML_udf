@@ -31,27 +31,27 @@ _PrtgShowXML()
 <prtg>
 
     <result>
-    <Channel>Barometer</Channel>
-    <Value>1014.3</Value>
-    <Unit>Custom</Unit>
-    <CustomUnit>hPa</CustomUnit>
-    <Float>1</Float>
+        <Channel>Barometer</Channel>
+        <Value>1014.3</Value>
+        <Unit>Custom</Unit>
+        <CustomUnit>hPa</CustomUnit>
+        <Float>1</Float>
     </result>
-    <result>
-    <Channel>Thermo</Channel>
-    <Value>25.3</Value>
-    <Unit>Temperature</Unit>
-    <Float>1</Float>
-    <DecimalMode>All</DecimalMode>
+        <result>
+        <Channel>Thermo</Channel>
+        <Value>25.3</Value>
+        <Unit>Temperature</Unit>
+        <Float>1</Float>
+        <DecimalMode>All</DecimalMode>
     </result>
-    <result>
-    <Channel>Hygro</Channel>
-    <Value>67</Value>
-    <Unit>Percent</Unit>
-    <Float>1</Float>
-    <DecimalMode>Auto</DecimalMode>
-    <ShowChart>0</ShowChart>
-    <ShowTable>0</ShowTable>
+        <result>
+        <Channel>Hygro</Channel>
+        <Value>67</Value>
+        <Unit>Percent</Unit>
+        <Float>1</Float>
+        <DecimalMode>Auto</DecimalMode>
+        <ShowChart>0</ShowChart>
+        <ShowTable>0</ShowTable>
     </result>
     <Text>Air quality OK</Text>
     <!--No errors found-->
