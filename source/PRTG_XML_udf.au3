@@ -398,7 +398,7 @@
 
 		; >>> OUTPUT THE CHANNEL
 		; Note: Only Tags that are <> Null will be shown
-		ConsoleWrite($TAB & '<result>' & @CRLF)
+		__PrtgResult()
 		_PrtgPrintTag("Channel", $_sChannel) 	; this will always be shown in a channel
 		_PrtgPrintTag("Value", $_vValueVar) 	; this will always be shown in a channel
 		_PrtgPrintTag("Unit", $_Unit)
@@ -421,7 +421,7 @@
 		_PrtgPrintTag("LimitMode", $_LimitMode)
 		_PrtgPrintTag("ValueLookup", $_sValueLookup)
 		_PrtgPrintTag("NotifyChanged", $_NotifyChanged)
-		ConsoleWrite($TAB & '</result>' & @CRLF)
+		__PrtgResult()
 
 		Return 1
 
@@ -442,7 +442,8 @@
 	; ===============================================================================================================================
 	Func _PrtgPrintTag($_sTag, $_sContent = "")
 		If ($_sContent == Null) Or StringIsSpace($_sTag) Then Return SetError(1, 0, "")			; we allow an empty text string (shows tags, but no content)
-		ConsoleWrite("    " & '<' & $_sTag & '>' & $_sContent & '</' & $_sTag & '>' & @CRLF)
+		Local $TAB = (Eval("____Result_status")==1) ? ("        ") : ("    ")					; controlled by __PrtgResult()
+		ConsoleWrite($TAB & '<' & $_sTag & '>' & $_sContent & '</' & $_sTag & '>' & @CRLF)
 	EndFunc
 
 
@@ -454,12 +455,15 @@
 	; Return values .: None
 	; Author ........: demux455
 	; Remarks .......: Automatically replaces double dashes "--" with a single dash to avoid invalid comment formatting.
+	; Notes .........: Dont place two comments right after each other, as PRTG will fail with an error when parsing the XML.
+	;                  PRTG seems unnessecary picky about this, tbh.
 	; Reference .....: https://www.w3schools.com/xml/xml_syntax.asp
 	; ===============================================================================================================================
 	Func _PrtgComment($_sCommentText = "")
 		If StringIsSpace($_sCommentText) Then Return
-		$_sCommentText = StringReplace($_sCommentText, "--", "-")	; Two dashes in the middle of a comment are not allowed, so we replace with a single dash
-		ConsoleWrite("    <!--" & $_sCommentText & "-->" & @CRLF)
+		Local $TAB = (Eval("____Result_status")==1) ? ("        ") : ("    ")	; controlled by __PrtgResult()
+		$_sCommentText = StringReplace($_sCommentText, "--", "-")				; Two dashes in the middle of a comment are not allowed, so we replace with a single dash
+		ConsoleWrite($TAB & "<!--" & $_sCommentText & "-->" & @CRLF)
 	EndFunc
 
 
@@ -490,8 +494,6 @@
 			Assign("____XML_status", "", 2)	; $ASSIGN_FORCEGLOBAL
 		EndIf
 	EndFunc
-
-
 
 
 	; #FUNCTION# ====================================================================================================================
@@ -591,6 +593,21 @@
 
 		Return $_sRet
 
+	EndFunc
+
+
+	; #INTERNAL_USE_ONLY# ===========================================================================================================
+	; Inserts <result> and </result> tags when used. To be used twice; once at the start of the channel, and once at the end.
+	; ===============================================================================================================================
+	Func __PrtgResult()
+		Local $_END = Eval("____Result_status")	; this is an internal Global var to check if we're outputting start or end result tags
+		If Not ($_END==1) Then
+			ConsoleWrite('    <result>' & @CRLF)
+			Assign("____Result_status", 1, 2) 	; $ASSIGN_FORCEGLOBAL
+		ElseIf ($_END=1) Then
+			ConsoleWrite('    </result>' & @CRLF)
+			Assign("____Result_status", "", 2)	; $ASSIGN_FORCEGLOBAL
+		EndIf
 	EndFunc
 
 
