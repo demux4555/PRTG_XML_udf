@@ -513,13 +513,13 @@
 		If Not ($_sMessageText==Null) Then	; we allow an empty "" message
 			If StringIsSpace($_OUTPUT) Or ($_OUTPUT==Default) Then $_OUTPUT = $PRTG_ERROR_PRINTBOTH
 
-			If $_OUTPUT==$PRTG_ERROR_PRINTXMLONLY Or $_OUTPUT==$PRTG_ERROR_PRINTBOTH Then
+			If ($_OUTPUT==$PRTG_ERROR_PRINTXMLONLY) Or ($_OUTPUT==$PRTG_ERROR_PRINTBOTH) Then
 				If Not IsDeclared("____XML_status") Then _PrtgShowXML()
 				_PrtgPrintTag("Text", $_sMessageText)
 				_PrtgPrintTag("Error", "1")
 				_PrtgShowXML()
 			EndIf
-			If $_OUTPUT==$PRTG_ERROR_PRINTSTDERRONLY Or $_OUTPUT==$PRTG_ERROR_PRINTBOTH Then
+			If ($_OUTPUT==$PRTG_ERROR_PRINTSTDERRONLY) Or ($_OUTPUT==$PRTG_ERROR_PRINTBOTH) Then
 				ConsoleWriteError($_sMessageText & @CRLF)
 			EndIf
 
