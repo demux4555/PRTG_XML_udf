@@ -14,7 +14,7 @@ Some of the functions:
 The XML prolog and PRTG root elements can be omitted by setting `Global $_CHAONLY = True`, allowing the program to be used in i.e. batch scripts together with multiple custom sensors.
 
 ### Usage example:
-```
+```AutoIt3
 #include "PRTG_XML_udf.au3"
 _PrtgShowXML()
 _PrtgChannel("Barometer", 1014.3, "hPa", $PRTG_FLOAT_YES)
@@ -26,7 +26,7 @@ _PrtgShowXML()
 ```
 
 ### Output example:
-```
+```XML
 <?xml version="1.0" encoding="Windows-1252" ?>
 <prtg>
 
