@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A set of user defined functions to ease the process of outputting XML return values for your [PRTG](https://www.paessler.com/prtg) "EXE/Script Advanced" sensors.
+A set of user defined functions to ease the process of outputting XML return values for your PRTG [EXE/Script Advanced](https://www.paessler.com/manuals/prtg/exe_script_advanced_sensor) sensors.
 
 Some of the functions:
 * `_PrtgChannel()`      - print a channel
