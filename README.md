@@ -1,4 +1,4 @@
-# PRTG_XML_udf - AutoIt3 UDF for PRTG
+# PRTG_XML_udf - AutoIt3 UDF for PRTG sensors
 
 ## Introduction
 
