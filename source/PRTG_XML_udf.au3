@@ -10,15 +10,21 @@
 ; Notes .........: Global Bool var $_CHAONLY can be used to determine if XML prolog and PRTG root elements should be included
 ;                  in output when using _PrtgShowXML().
 ;                  Global Bool vars $_D and $_DD can be used for debugging.
+; Link ..........: https://github.com/demux4555/PRTG_XML_udf
 ; License .......: GPLv3 - https://www.gnu.org/licenses/gpl-3.0.en.html
 ; ===============================================================================================================================
 
 
-If Not IsDeclared("_CHAONLY") Then Global $_CHAONLY = False	; for _PrtgShowXML()
 
 
 #Region ### CONSTANTS FOR PRTG XML TAGS ###
 
+
+	If Not IsDeclared("_CHAONLY") Then Global $_CHAONLY = False	; for _PrtgShowXML()
+
+	; The could/should be set already in the main script. Personally I use these two Global vars throughout all my scripts.
+	If Not IsDeclared("_D")  Then Global $_D  = False		; $_D  for console debugging
+	If Not IsDeclared("_DD") Then Global $_DD = False		; $_DD for extra verbose console debugging
 
 	; Settings for _PrtgReturnError() $_OUTPUT
 	Global Const $PRTG_ERROR_PRINTXMLONLY 		= 0
@@ -241,8 +247,8 @@ If Not IsDeclared("_CHAONLY") Then Global $_CHAONLY = False	; for _PrtgShowXML()
 		EndSelect
 
 
-		; >>> -DD debug mode with XML tags removed for super compact debug output
-		If (Eval("_D")=True) And (Eval("_DD")=True) Then 						; checks $_D and $_DD status... command line arguments -D and -DD
+		; debug mode with XML tags removed for compact debug output
+		If $_D And $_DD Then
 			ConsoleWrite('    ['&$_sChannel&']  =  ['&$_vValueVar&']  ' & @TAB & @TAB & (($_sCustomUnit=Null) ? ($_Unit) : ("'" & $_sCustomUnit & "'")) & @CRLF)		; output i.e. "[channel name] = [value]  CustomUnit"
 			Return 1 ; quit
 		EndIf
